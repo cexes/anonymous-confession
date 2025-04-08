@@ -1,0 +1,48 @@
+# =====================================
+.idea/
+*.iml
+*.ipr
+*.iws
+.gradle/
+local.properties
+# =====================================
+/build/
+/app/build/
+/*/build/
+*.apk
+*.ap_
+*.dex
+*.class
+# =====================================
+*.log
+*.tmp
+*.temp
+*.swp
+*.swo
+# =====================================
+.DS_Store
+# =====================================
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+# =====================================
+*~
+# =====================================
+/captures/
+/.externalNativeBuild/
+.cxx/
+.idea/caches/
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+# =====================================
+!gradle/wrapper/gradle-wrapper.properties
+!gradlew
+!gradlew.bat
+# =====================================
+*.kts~
+# =====================================
+.vscode/
+
