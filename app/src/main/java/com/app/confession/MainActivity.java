@@ -26,6 +26,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.net.ssl.SSLContext;
+
 public class MainActivity extends AppCompatActivity {
 
     private List<Confession> confessionList = new ArrayList<>();
@@ -58,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         setText();
         sendConfession();
         getAllConfession();
+
     }
 
     public void setText() {
@@ -77,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                     String jsonString = json.toString();
                     Log.d("JSON", jsonString);
 
-                    URL url = new URL("");
+                    URL url = new URL("http://10.0.2.2:8080/confession/v1/confession");
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.setRequestMethod("POST");
                     conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
@@ -106,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
     public void getAllConfession() {
         new Thread(() -> {
             try {
-                URL url = new URL("");
+                URL url = new URL("http://10.0.2.2:8080/confession/v1/confession");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
@@ -120,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
                     response.append(line);
                 }
                 reader.close();
-
+                System.out.println(response.toString());
                 String json = response.toString();
                 JSONArray jsonArray = new JSONArray(json);
                 List<Confession> updatedConfessions = new ArrayList<>();
@@ -129,7 +132,8 @@ public class MainActivity extends AppCompatActivity {
                     JSONObject obj = jsonArray.getJSONObject(i);
                     Confession confession = new Confession();
                     confession.setContent(obj.getString("content"));
-                    confession.setLike(obj.optInt("like", 0));
+                    confession.setId(obj.getInt("id"));
+                    confession.setLike(obj.optInt("like_post", 0));
                     updatedConfessions.add(confession);
                 }
 
@@ -146,4 +150,5 @@ public class MainActivity extends AppCompatActivity {
             }
         }).start();
     }
+
 }
